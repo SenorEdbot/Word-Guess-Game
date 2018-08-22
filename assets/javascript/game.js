@@ -1,4 +1,4 @@
-var answerArr = ["guess1","guess2","guess3","guess4","guess5"];
+var answerArr = ["crocodile","gorilla","tiger","piranha","leopard", "rhinoceros", "elephant"];
 var userGuessArr = []; /*This will be individual characters (a, b, c)*/
 var incorrectGuessArr = []; /*keeps track of the incorrect guesses (a, b, c)*/
 var wins = 0;
@@ -66,16 +66,32 @@ document.onkeyup = function(event){
             winTrackerText = "Current wins " + wins + ".";
             winTrackerID.textContent = winTrackerText;
             //resets after win
-            userGuessArr = [];
-            incorrectGuessArr = [];
-            guessesRemaining = 10;
-            currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
+                userGuessArr = [];
+                incorrectGuessArr = [];
+                incorrectGuessesText = "";
+                incorrectGuessesID.textContent = incorrectGuessesText;
+                guessesRemaining = 10;
+                remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
+                remainingGuessesID.textContent = remainingGuessesText;
+                lastGuessText = "CONGRATS! You just won. Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                //setting the current answer again
+                currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
+                currentAnswerArr = currentAnswer.split("");
+                currentAnswerText = "-".repeat(currentAnswerArr.length);
+                currentAnswerID.textContent = currentAnswerText;
+                currentAnswerTextArr = currentAnswerText.split("");
         }
 
     }
     else { 
         // Adding the users guess to the userGuessArr
         userGuessArr.push(userGuess);
+        //take 1 away from the number of guesses remaining
+        guessesRemaining -= 1;
+        remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
+        remainingGuessesID.textContent = remainingGuessesText;
+        
         // add user guess to the incorrect guesses array
         incorrectGuessArr.push(userGuess);
         incorrectGuessesText = incorrectGuessArr.join(", ");
@@ -83,9 +99,25 @@ document.onkeyup = function(event){
         //Set lastGuessText
         lastGuessText = "Incorrect! You selected: " + userGuess + "."
         lastGuessID.textContent = lastGuessText;
-        //take 1 away from the number of guesses remaining
-        guessesRemaining -= 1;
-        remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";remainingGuessesID.textContent = remainingGuessesText;
+
+        //if statement to determine if their are no more guesses left
+        if ( guessesRemaining === 0 ) {
+            guessesRemaining = 10;
+            remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
+            remainingGuessesID.textContent = remainingGuessesText;
+            incorrectGuessArr = [];
+            incorrectGuessesText = "";
+            incorrectGuessesID.textContent = incorrectGuessesText;
+            userGuessArr = [];
+            lastGuessText = "OH NO! You ran out of guesses. Select any letter to play again.";
+            lastGuessID.textContent = lastGuessText;
+            //setting the current answer again
+            currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
+            currentAnswerArr = currentAnswer.split("");
+            currentAnswerText = "-".repeat(currentAnswerArr.length);
+            currentAnswerID.textContent = currentAnswerText;
+            currentAnswerTextArr = currentAnswerText.split("");
+        }
 
     }
 }
