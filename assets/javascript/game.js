@@ -32,11 +32,19 @@ currentAnswerTextArr = currentAnswerText.split("");
 
 //Listener for a keyup
 document.onkeyup = function(event){
+    //Looking into the keyup to determine what type of key was pressed.
+    var userGuessCharCode = String.fromCharCode(event.keyCode);
+    if (/[a-z]/.test(userGuessCharCode)){
+        //user input is a lowercase letter
+    }
+    else if (/[A-Z]/.test(userGuessCharCode)){
+        //user input is an uppercase letter
+    } else {
+        //user input is not an upper or lower case letter
+    }
 
     // Storing the key in a variable
     var userGuess = event.key;
-
-
     // logic to decide what to do with the user guess
     if (userGuessArr.indexOf(userGuess)> -1) {
         // check if the letter has been used before
@@ -66,21 +74,21 @@ document.onkeyup = function(event){
             winTrackerText = "Current wins " + wins + ".";
             winTrackerID.textContent = winTrackerText;
             //resets after win
-                userGuessArr = [];
-                incorrectGuessArr = [];
-                incorrectGuessesText = "";
-                incorrectGuessesID.textContent = incorrectGuessesText;
-                guessesRemaining = 10;
-                remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
-                remainingGuessesID.textContent = remainingGuessesText;
-                lastGuessText = "CONGRATS! You just won. Select any letter to play again.";
-                lastGuessID.textContent = lastGuessText;
-                //setting the current answer again
-                currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
-                currentAnswerArr = currentAnswer.split("");
-                currentAnswerText = "-".repeat(currentAnswerArr.length);
-                currentAnswerID.textContent = currentAnswerText;
-                currentAnswerTextArr = currentAnswerText.split("");
+            userGuessArr = [];
+            incorrectGuessArr = [];
+            incorrectGuessesText = "";
+            incorrectGuessesID.textContent = incorrectGuessesText;
+            guessesRemaining = 10;
+            remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
+            remainingGuessesID.textContent = remainingGuessesText;
+            lastGuessText = "CONGRATS! You just won. Select any letter to play again.";
+            lastGuessID.textContent = lastGuessText;
+            //setting the current answer again
+            currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
+            currentAnswerArr = currentAnswer.split("");
+            currentAnswerText = "-".repeat(currentAnswerArr.length);
+            currentAnswerID.textContent = currentAnswerText;
+            currentAnswerTextArr = currentAnswerText.split("");
         }
 
     }
