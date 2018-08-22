@@ -2,9 +2,8 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Car Adventures!</title>
-    <script type="text/javascript" src="assets/javascript/game.js"></script>
-    <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
+    <title>Word Guessing Game</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
@@ -20,7 +19,7 @@
                 </div>
                 <div class="col col-lg-6">
                     <div class="row">
-                        <p id="lastGuess">Please press a letter to make your first guess.</p>
+                        <p id="lastGuess"></p>
                         <!-- Starting instructions and then telling the user what their last guess was is displayed here -->
                     </div>
                     <div class="row">
@@ -32,15 +31,17 @@
                         <!-- The current incorrect guesses are displayed here. UpperCase -->
                     </div>
                     <div class="row">
-                        <p id="remainingGuesses"> </p>
+                        <p id="remainingGuesses"></p>
                         <!-- The number of guesses remaining are displayed here -->
                     </div>
                     <div class="row">
-                        <p id="winTracker">Current wins: 0</p>
+                        <p id="winTracker"></p>
                         <!-- The number of wins will be displayed here -->
                     </div>
                 </div>
             </div>
       </div>
   </body>
+  
+  <script type="text/javascript" src="assets/javascript/game.js"></script>
 </html>
