@@ -9,6 +9,10 @@ var currentAnswerID = document.getElementById("currentAnswer");
 var incorrectGuessesID = document.getElementById("incorrectGuesses");
 var remainingGuessesID = document.getElementById("remainingGuesses");
 var winTrackerID = document.getElementById("winTracker");
+//Setting Image ID tag variables
+var gameImageID = document.getElementById("gameImage");
+//Setting Audio
+var gameSound = "";
 
 //Setting text variables
 var lastGuessText = "Please press a letter to make your first guess.";
@@ -29,98 +33,184 @@ currentAnswerText = "-".repeat(currentAnswerArr.length);
 currentAnswerID.textContent = currentAnswerText;
 currentAnswerTextArr = currentAnswerText.split("");
 
+//Researching W3 Schools this example was showcased and fit my needs perfectly. A sound playing with no display or controls that has the src pushed through.
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
+function setCurrentAnswer() {
+    currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
+    currentAnswerArr = currentAnswer.split("");
+    currentAnswerText = "-".repeat(currentAnswerArr.length);
+    currentAnswerID.textContent = currentAnswerText;
+    currentAnswerTextArr = currentAnswerText.split("");
+}
+function gameReset() {
+    userGuessArr = [];
+    incorrectGuessArr = [];
+    incorrectGuessesText = "";
+    incorrectGuessesID.textContent = incorrectGuessesText;
+    guessesRemaining = 10;
+    remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
+    remainingGuessesID.textContent = remainingGuessesText;
+}
+function gameLogic(x){
+    // logic to decide what to do with the user guess
+    if (userGuessArr.indexOf(x)> -1) {
+        // check if the letter has been used before
+        lastGuessText = "You've already selected "+ x +", please chooe another letter.";
+        lastGuessID.textContent = lastGuessText;
+    }
+    else if ( currentAnswerArr.indexOf(x) > -1 ) {
+        // Adding the users first guess to the userGuessArr
+        userGuessArr.push(x);
 
+        //Set lastGuessText
+        lastGuessText = "Correct! You selected: " + x + "."
+        lastGuessID.textContent = lastGuessText;
+        // logic to decide what part of the currentAnswerArr the guess is and then displaying the letter
+        for (var i=0; i<currentAnswerArr.length; i++) {
+            if ( currentAnswerArr[i] === x ) {
+                currentAnswerTextArr[i] = x;
+                currentAnswerText = currentAnswerTextArr.join('');
+                currentAnswerID.textContent = currentAnswerText;
+            }
+        }
+
+        //if statement to decide if the user won
+        if (currentAnswerText === currentAnswer) {
+            wins += 1;
+            winTrackerText = "Current wins " + wins + ".";
+            winTrackerID.textContent = winTrackerText;
+            //Logic for Photo
+            
+            if (currentAnswer == "crocodile"){
+                gameImageID.setAttribute("src","assets/images/crocodile.jpg");
+                //resets after win
+                gameReset();
+                //setting the current answer again
+                setCurrentAnswer();
+                //notify user
+                lastGuessText = "CONGRATS! Don't get bit by the Croc! Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                gameSound = new sound("assets/audio/crocodileSound.mp3");
+                gameSound.play();
+            } else if (currentAnswer == "gorilla") {
+                gameImageID.setAttribute("src","assets/images/gorilla.jpg");
+                //resets after win
+                gameReset();
+                //setting the current answer again
+                setCurrentAnswer();
+                //notify user
+                lastGuessText = "CONGRATS! Gorillas have unique noseprints which can be used to identify individuals! Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                gameSound = new sound("assets/audio/gorillaSound.mp3");
+                gameSound.play();
+            } else if (currentAnswer == "tiger") {
+                gameImageID.setAttribute("src","assets/images/tiger.jpg");
+                //resets after win
+                gameReset();
+                //setting the current answer again
+                setCurrentAnswer();
+                //notify user
+                lastGuessText = "CONGRATS! No 2 tigers have the same stripe patern o.O. Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                gameSound = new sound("assets/audio/tigerSound.mp3");
+                gameSound.play();
+            } else if (currentAnswer == "piranha") {
+                gameImageID.setAttribute("src","assets/images/piranha.jpg");
+                //resets after win
+                gameReset();
+                //setting the current answer again
+                setCurrentAnswer();
+                //notify user
+                lastGuessText = "CONGRATS! Don't stick any fingers in the water. Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                gameSound = new sound("assets/audio/piranhaSound.mp3");
+                gameSound.play();
+            } else if (currentAnswer == "leopard") {
+                gameImageID.setAttribute("src","assets/images/leopard.jpg");
+                //resets after win
+                gameReset();
+                //setting the current answer again
+                setCurrentAnswer();
+                //notify user
+                lastGuessText = "CONGRATS! Leopards can run 36 miles per hour! Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                gameSound = new sound("assets/audio/leopardSound.mp3");
+                gameSound.play();
+            } else if (currentAnswer == "rhinoceros") {
+                gameImageID.setAttribute("src","assets/images/rhinoceros.png");
+                //resets after win
+                gameReset();
+                //setting the current answer again
+                setCurrentAnswer();
+                //notify user
+                lastGuessText = "CONGRATS! Rhinoceros actually means nose horn! Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                gameSound = new sound("assets/audio/rhinocerosSound.mp3");
+                gameSound.play();
+            } else if (currentAnswer == "elephant") {
+                gameImageID.setAttribute("src","assets/images/elephant.jpg");
+                //resets after win
+                gameReset();
+                //setting the current answer again
+                setCurrentAnswer();
+                //notify user
+                lastGuessText = "CONGRATS! Elephants are the largest land animal on earth! Select any letter to play again.";
+                lastGuessID.textContent = lastGuessText;
+                gameSound = new sound("assets/audio/elephantSound.mp3");
+                gameSound.play();
+            }
+
+        }
+
+    }
+    else { 
+        // Adding the users guess to the userGuessArr
+        userGuessArr.push(x);
+        //take 1 away from the number of guesses remaining
+        guessesRemaining -= 1;
+        remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
+        remainingGuessesID.textContent = remainingGuessesText;
+        
+        // add user guess to the incorrect guesses array
+        incorrectGuessArr.push(x);
+        incorrectGuessesText = incorrectGuessArr.join(", ");
+        incorrectGuessesID.textContent = incorrectGuessesText;
+        //Set lastGuessText
+        lastGuessText = "Incorrect! You selected: " + x + "."
+        lastGuessID.textContent = lastGuessText;
+
+        //if statement to determine if their are no more guesses left
+        if ( guessesRemaining === 0 ) {
+            //reset the game
+            gameReset();
+            //setting the current answer again
+            setCurrentAnswer();
+            gameImageID.setAttribute("src","assets/images/junglesafari.jpg");
+            //notify user
+            lastGuessText = "OH NO! You ran out of guesses. Select any letter to play again.";
+            lastGuessID.textContent = lastGuessText;
+
+        }
+
+    }
+}
 //Listener for a keyup
 document.onkeyup = function(event){
-
-    function gameLogic(x){
-    // logic to decide what to do with the user guess
-        if (userGuessArr.indexOf(x)> -1) {
-            // check if the letter has been used before
-            lastGuessText = "You've already selected "+ x +", please chooe another letter.";
-            lastGuessID.textContent = lastGuessText;
-        }
-        else if ( currentAnswerArr.indexOf(x) > -1 ) {
-            // Adding the users first guess to the userGuessArr
-            userGuessArr.push(x);
-
-            //Set lastGuessText
-            lastGuessText = "Correct! You selected: " + x + "."
-            lastGuessID.textContent = lastGuessText;
-            // logic to decide what part of the currentAnswerArr the guess is and then displaying the letter
-            // check for duplicate letters in a word ("letter" for example has 2 e's nad 2 t's)
-            for (var i=0; i<currentAnswerArr.length; i++) {
-                if ( currentAnswerArr[i] === x ) {
-                    currentAnswerTextArr[i] = x;
-                    currentAnswerText = currentAnswerTextArr.join('');
-                    currentAnswerID.textContent = currentAnswerText;
-                }
-            }
-
-            //if statement to decide if the user won
-            if (currentAnswerText === currentAnswer) {
-                wins += 1;
-                winTrackerText = "Current wins " + wins + ".";
-                winTrackerID.textContent = winTrackerText;
-                //resets after win
-                userGuessArr = [];
-                incorrectGuessArr = [];
-                incorrectGuessesText = "";
-                incorrectGuessesID.textContent = incorrectGuessesText;
-                guessesRemaining = 10;
-                remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
-                remainingGuessesID.textContent = remainingGuessesText;
-                lastGuessText = "CONGRATS! You just won. Select any letter to play again.";
-                lastGuessID.textContent = lastGuessText;
-                //setting the current answer again
-                currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
-                currentAnswerArr = currentAnswer.split("");
-                currentAnswerText = "-".repeat(currentAnswerArr.length);
-                currentAnswerID.textContent = currentAnswerText;
-                currentAnswerTextArr = currentAnswerText.split("");
-            }
-
-        }
-        else { 
-            // Adding the users guess to the userGuessArr
-            userGuessArr.push(userGuess);
-            //take 1 away from the number of guesses remaining
-            guessesRemaining -= 1;
-            remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
-            remainingGuessesID.textContent = remainingGuessesText;
-            
-            // add user guess to the incorrect guesses array
-            incorrectGuessArr.push(userGuess);
-            incorrectGuessesText = incorrectGuessArr.join(", ");
-            incorrectGuessesID.textContent = incorrectGuessesText;
-            //Set lastGuessText
-            lastGuessText = "Incorrect! You selected: " + userGuess + "."
-            lastGuessID.textContent = lastGuessText;
-
-            //if statement to determine if their are no more guesses left
-            if ( guessesRemaining === 0 ) {
-                guessesRemaining = 10;
-                remainingGuessesText = "Remaining Guesses: " + guessesRemaining + ".";
-                remainingGuessesID.textContent = remainingGuessesText;
-                incorrectGuessArr = [];
-                incorrectGuessesText = "";
-                incorrectGuessesID.textContent = incorrectGuessesText;
-                userGuessArr = [];
-                lastGuessText = "OH NO! You ran out of guesses. Select any letter to play again.";
-                lastGuessID.textContent = lastGuessText;
-                //setting the current answer again
-                currentAnswer = answerArr[Math.floor(Math.random() * answerArr.length)];
-                currentAnswerArr = currentAnswer.split("");
-                currentAnswerText = "-".repeat(currentAnswerArr.length);
-                currentAnswerID.textContent = currentAnswerText;
-                currentAnswerTextArr = currentAnswerText.split("");
-            }
-
-        }
-    }
     // Storing the key in a variable
     var userGuess = event.key;
-
         
     //Looking into the keyup to determine what type of key was pressed.
     var userGuessCharCode = String.fromCharCode(event.keyCode);

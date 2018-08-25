@@ -1,4 +1,26 @@
+body{
+    background-image: url(../images/background3.jpg);
+}
+
 .page-header {
     font-size: 36px;
     font-weight: 600px;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+.container{
+    background-color: #ffffff;
+}
+#titleImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+
+}
+.titleRow {
+    background-color: black;
+}
+#gameImage {
+    width: 100%;
 }
